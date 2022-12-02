@@ -1,4 +1,4 @@
-module Heap where
+module Aoclibs.Heap where
 
 import Control.Applicative
 import Data.Bool

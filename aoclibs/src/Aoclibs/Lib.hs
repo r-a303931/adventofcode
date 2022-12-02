@@ -1,8 +1,8 @@
-module Lib where
+module Aoclibs.Lib where
 
 import Data.Maybe
 import Debug.Trace
-import Parser
+import Aoclibs.Parser
 
 mTrace :: (a -> String) -> a -> a
 mTrace = (trace =<<)

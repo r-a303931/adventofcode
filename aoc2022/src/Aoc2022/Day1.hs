@@ -1,9 +1,9 @@
-module Day1 where
+module Aoc2022.Day1 where
 
 import Control.Applicative
 import Data.List
-import Lib
-import Parser
+import Aoclibs.Lib
+import Aoclibs.Parser
 
 type Result = Int
 type Repr = [[Int]]

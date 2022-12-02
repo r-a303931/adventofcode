@@ -4,11 +4,11 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 
-name:           aoc2022
+name:           aoclibs
 version:        0.1.0.0
-description:    Please see the README on GitHub at <https://github.com/r-a303931/aoc2022#readme>
-homepage:       https://github.com/r-a303931/aoc2022#readme
-bug-reports:    https://github.com/r-a303931/aoc2022/issues
+description:    Please see the README on GitHub at <https://github.com/r-a303931/aoclibs#readme>
+homepage:       https://github.com/r-a303931/aoclibs#readme
+bug-reports:    https://github.com/r-a303931/aoclibs/issues
 author:         Andrew Rioux
 maintainer:     rioux.d.andrew@gmail.com
 copyright:      AGPL
@@ -18,20 +18,20 @@ build-type:     Simple
 
 source-repository head
   type: git
-  location: https://github.com/r-a303931/aoc2022
+  location: https://github.com/r-a303931/aoclibs
 
 library
   exposed-modules:
-      Aoc2022.Lib
-      Aoc2022.Day1
-      Aoc2022.Day2
+      Aoclibs.Graph
+      Aoclibs.Heap
+      Aoclibs.Lib
+      Aoclibs.Parser
+      Aoclibs.Year
   other-modules:
-      Paths_aoc2022
+      Paths_aoclibs
   hs-source-dirs:
       src
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
       base >=4.7 && <5
-    , aoclibs
-    , containers
   default-language: Haskell2010

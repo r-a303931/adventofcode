@@ -1,8 +1,8 @@
-module Day2 where
+module Aoc2022.Day2 where
 
 import Control.Applicative
-import Lib
-import Parser
+import Aoclibs.Lib
+import Aoclibs.Parser
 
 data Move = Rock | Paper | Scissors deriving Show
 data Strategy = Win | Lose | Draw deriving Show
