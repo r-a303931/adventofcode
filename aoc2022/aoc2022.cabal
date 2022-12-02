@@ -26,6 +26,8 @@ source-repository head
 library
   exposed-modules:
       Day1
+      Day2
+      Heap
       Lib
       Parser
   other-modules:
