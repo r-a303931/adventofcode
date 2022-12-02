@@ -1,8 +1,8 @@
-module Aoclibs.Heap where
+module Aoclibs.Heap (Heap, emptyHeap, heapPeek, heapHeight, heapNodeCount, heapIsNull, heapIsLeaf, heapPop, heapInsert, heapFromList) where
 
 import Control.Applicative
 import Data.Bool
-import Data.List
+import Data.List (intercalate)
 
 data HeapNode a = HeapNode
   { heapLeftChild :: Maybe (HeapNode a)
@@ -49,9 +49,6 @@ instance Show a => Show (HeapBase a) where
 emptyHeap :: Heap a
 emptyHeap = Heap Nothing
 
-heapEmptyNode :: a -> HeapNode a
-heapEmptyNode v = HeapNode { heapNodeValue=v, heapLeftChild=Nothing, heapRightChild=Nothing }
-
 heapPeek :: Heap a -> Maybe a
 heapPeek = fmap (heapNodeValue . heapRoot) . heapBase
 
@@ -78,7 +75,7 @@ heapIsIndexRightOf x x'
   | x == x' `div` 2 = x' `rem` 2 == 1
   | otherwise = heapIsIndexRightOf x (x' `div` 2)
 
-heapPop :: (Ord a, Show a) => Heap a -> Maybe (a, Heap a)
+heapPop :: Ord a => Heap a -> Maybe (a, Heap a)
 heapPop = fmap f . heapBase
   where heapRemoveLast n c i =
           case (heapLeftChild n, heapRightChild n, heapIsIndexRightOf c i) of

@@ -1,4 +1,4 @@
-module Aoc2022.Day2 where
+module Aoc2022.Day2 (results1, part1, results2, part2) where
 
 import Control.Applicative
 import Aoclibs.Lib
@@ -46,6 +46,7 @@ solve1 = sum . fmap roundPoints
 results1 :: Maybe [TestResult Result]
 results1 = makeTestP fileParser1 solve1 [ (testData, 15) ]
 
+part1 :: Solution Repr1 Result Result
 part1 = Solution { filePathP="inputs/day2.txt"
                  , contentParser=fileParser1
                  , solveProblemP=solve1
@@ -83,6 +84,7 @@ solve2 = sum . fmap (roundPoints . useStrategy)
 results2 :: Maybe [TestResult Result]
 results2 = makeTestP fileParser2 solve2 [ (testData, 12) ]
 
+part2 :: Solution Repr2 Result Result
 part2 = part1 { contentParser=fileParser2
               , solveProblemP=solve2
               }

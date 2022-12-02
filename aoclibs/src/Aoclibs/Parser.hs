@@ -1,4 +1,4 @@
-module Aoclibs.Parser where
+module Aoclibs.Parser (Parser(..), item, charP, stringP, spanP, parseIf, ws, sepBy, intP, tokenP, wordP) where
 
 import Control.Applicative
 import Data.Char

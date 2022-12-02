@@ -1,5 +1,5 @@
-module Aoclibs.Graph where
+module Aoclibs.Graph () where
 
-import Aoclibs.Heap
+-- import Aoclibs.Heap
 
 -- data Graph v =

@@ -1,7 +1,7 @@
-module Aoc2022.Day1 where
+module Aoc2022.Day1 (results1, part1, results2, part2) where
 
 import Control.Applicative
-import Data.List
+import Data.List (sort)
 import Aoclibs.Lib
 import Aoclibs.Parser
 
@@ -34,6 +34,13 @@ solve1 = maximum . fmap sum
 results1 :: Maybe [TestResult Result]
 results1 = makeTestP fileParser solve1 [ (testData, 24000) ]
 
+part1 :: Solution Repr Result Result
+part1 = Solution { filePathP="inputs/day1.txt"
+                 , contentParser=fileParser
+                 , solveProblemP=solve1
+                 , displaySolutionP=id
+                 }
+
 solve2 :: Repr -> Result
 solve2 = sum . foldl keepTop3 [0,0,0]
   where keepTop3 top3 new = take 3 $ reverse $ sort $ (sum new) : top3
@@ -41,10 +48,5 @@ solve2 = sum . foldl keepTop3 [0,0,0]
 results2 :: Maybe [TestResult Result]
 results2 = makeTestP fileParser solve2 [ (testData, 45000) ]
 
-part1 = Solution { filePathP="inputs/day1.txt"
-                 , contentParser=fileParser
-                 , solveProblemP=solve1
-                 , displaySolutionP=id
-                 }
-
+part2 :: Solution Repr Result Result
 part2 = part1 { solveProblemP=solve2 }
