@@ -4,7 +4,7 @@ import Control.Applicative
 import Aoclibs.Lib
 import Aoclibs.Parser
 
-data Move = Rock | Paper | Scissors deriving Show
+data Move = Rock | Paper | Scissors deriving (Show, Eq)
 data Strategy = Win | Lose | Draw deriving Show
 type Repr1 = [(Move, Move)]
 type Repr2 = [(Move, Strategy)]
@@ -15,11 +15,18 @@ testData = "A Y\n\
            \B X\n\
            \C Z\n"
 
-itBeats :: Move -> Move -> Bool
-itBeats Rock Scissors = True
-itBeats Scissors Paper = True
-itBeats Paper Rock = True
-itBeats _ _ = False
+winningMove :: Move -> Move
+winningMove Rock = Paper
+winningMove Paper = Scissors
+winningMove Scissors = Rock
+
+losingMove :: Move -> Move
+losingMove Rock = Scissors
+losingMove Paper = Rock
+losingMove Scissors = Paper
+
+beats :: Move -> Move -> Bool
+beats m1 m2 = winningMove m2 == m1
 
 points :: Move -> Int
 points Rock = 1
@@ -27,15 +34,12 @@ points Paper = 2
 points Scissors = 3
 
 roundPoints :: (Move, Move) -> Int
-roundPoints (them, me) | itBeats me them = 6 + points me
-roundPoints (them, me) | itBeats them me = 0 + points me
+roundPoints (them, me) | beats me them = 6 + points me
+roundPoints (them, me) | beats them me = 0 + points me
 roundPoints (_,    me)                 = 3 + points me
 
 moveParser :: Parser Move
-moveParser = rockParser <|> paperParser <|> scissorsParser
-  where rockParser = const Rock <$> (charP 'A' <|> charP 'X')
-        paperParser = const Paper <$> (charP 'B' <|> charP 'Y')
-        scissorsParser = const Scissors <$> (charP 'C' <|> charP 'Z')
+moveParser = charMapP [('A', Rock), ('B', Paper), ('C', Scissors)] <|> charMapP [('X', Rock), ('Y', Paper), ('Z', Scissors)]
 
 fileParser1 :: Parser Repr1
 fileParser1 = sepBy (charP '\n') $ pure (,) <*> (moveParser <* charP ' ') <*> moveParser
@@ -53,29 +57,16 @@ part1 = Solution { filePathP="inputs/day2.txt"
                  , displaySolutionP=id
                  }
 
-beats :: Move -> Move
-beats Rock = Paper
-beats Paper = Scissors
-beats Scissors = Rock
-
-loses :: Move -> Move
-loses Rock = Scissors
-loses Paper = Rock
-loses Scissors = Paper
-
 strategyParser :: Parser Strategy
-strategyParser = winParser <|> loseParser <|> drawParser
-  where winParser = const Win <$> charP 'Z'
-        loseParser = const Lose <$> charP 'X'
-        drawParser = const Draw <$> charP 'Y'
+strategyParser = charMapP [('Z', Win), ('X', Lose), ('Y', Draw)]
 
 fileParser2 :: Parser Repr2
 fileParser2 = sepBy (charP '\n') playParser
   where playParser = pure (,) <*> (moveParser <* charP ' ') <*> strategyParser
 
 useStrategy :: (Move, Strategy) -> (Move, Move)
-useStrategy (m, Win) = (m, beats m)
-useStrategy (m, Lose) = (m, loses m)
+useStrategy (m, Win) = (m, winningMove m)
+useStrategy (m, Lose) = (m, losingMove m)
 useStrategy (m, Draw) = (m, m)
 
 solve2 :: Repr2 -> Result

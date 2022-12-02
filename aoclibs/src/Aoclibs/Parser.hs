@@ -1,4 +1,4 @@
-module Aoclibs.Parser (Parser(..), item, charP, stringP, spanP, parseIf, ws, sepBy, intP, tokenP, wordP) where
+module Aoclibs.Parser (Parser(..), item, charP, stringP, spanP, parseIf, ws, sepBy, intP, tokenP, wordP, charMapP) where
 
 import Control.Applicative
 import Data.Char
@@ -60,3 +60,6 @@ tokenP = spanP (not . isSpace)
 
 wordP :: Parser String
 wordP = spanP isAlpha
+
+charMapP :: [(Char, a)] -> Parser a
+charMapP = asum . fmap (\(c,v) -> const v <$> charP c)
