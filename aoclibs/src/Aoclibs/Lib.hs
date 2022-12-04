@@ -22,16 +22,16 @@ makeTestP p f d = test <$> parsed
   where test   = makeTestT f
         parsed = sequenceA . map (\(i,o) -> (flip (,) o . fst) <$> (parse p i)) $ d
 
-data Solution a b c = Solution { filePathP :: String
-                               , contentParser :: Parser a
-                               , solveProblemP :: a -> b
-                               , displaySolutionP :: b -> c
-                               }
+data Solution a b = Solution { filePathP :: String
+                             , contentParser :: Parser a
+                             , solveProblemP :: a -> b
+                             , displaySolutionP :: b -> Int
+                             }
 
-runProgramP         :: Show c => Solution a b c -> IO ()
+runProgramP         :: Solution a b -> IO ()
 runProgramP program = interactFile (filePathP program) $ fromJust . (\s -> ((displaySolutionP program) . (solveProblemP program) . fst) <$> (parse (contentParser program) s))
 
-run         :: Show c => Solution a b c -> IO [()]
+run         :: Solution a b -> IO [()]
 run program = sequenceA [runProgramP program, putStrLn ""]
 
 interactFile      :: Show a => String -> (String -> a) -> IO ()
