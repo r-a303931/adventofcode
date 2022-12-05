@@ -34,7 +34,7 @@ solve1 = maximum . fmap sum
 results1 :: Maybe [TestResult Result]
 results1 = makeTestP fileParser solve1 [ (testData, 24000) ]
 
-part1 :: Solution Repr Result
+part1 :: Solution Repr Result Int
 part1 = Solution { filePathP="inputs/day1.txt"
                  , contentParser=fileParser
                  , solveProblemP=solve1
@@ -48,5 +48,5 @@ solve2 = sum . foldl keepTop3 [0,0,0]
 results2 :: Maybe [TestResult Result]
 results2 = makeTestP fileParser solve2 [ (testData, 45000) ]
 
-part2 :: Solution Repr Result
+part2 :: Solution Repr Result Int
 part2 = part1 { solveProblemP=solve2 }

@@ -1,4 +1,4 @@
-module Aoclibs.Lib (TestResult, Solution(..), mTrace, makeTestP, run, runProgramP, wordsWhen) where
+module Aoclibs.Lib (TestResult, Solution(..), mTrace, makeTestP, run, runProgramP, wordsWhen, modifyArray) where
 
 import Data.Maybe
 import Debug.Trace
@@ -22,16 +22,16 @@ makeTestP p f d = test <$> parsed
   where test   = makeTestT f
         parsed = sequenceA . map (\(i,o) -> (flip (,) o . fst) <$> (parse p i)) $ d
 
-data Solution a b = Solution { filePathP :: String
-                             , contentParser :: Parser a
-                             , solveProblemP :: a -> b
-                             , displaySolutionP :: b -> Int
-                             }
+data Solution a b c = Solution { filePathP :: String
+                               , contentParser :: Parser a
+                               , solveProblemP :: a -> b
+                               , displaySolutionP :: b -> c
+                               }
 
-runProgramP         :: Solution a b -> IO ()
+runProgramP         :: Show c => Solution a b c -> IO ()
 runProgramP program = interactFile (filePathP program) $ fromJust . (\s -> ((displaySolutionP program) . (solveProblemP program) . fst) <$> (parse (contentParser program) s))
 
-run         :: Solution a b -> IO [()]
+run         :: Show c => Solution a b c -> IO [()]
 run program = sequenceA [runProgramP program, putStrLn ""]
 
 interactFile      :: Show a => String -> (String -> a) -> IO ()
@@ -42,3 +42,7 @@ wordsWhen p s =  case dropWhile p s of
                       "" -> []
                       s' -> w : wordsWhen p s''
                             where (w, s'') = break p s'
+
+
+modifyArray :: (a -> (a, b)) -> Int -> [a] -> ([a], b)
+modifyArray f ind arr = let (a, b) = f $ arr !! ind in (take ind arr ++ [a] ++ drop (ind + 1) arr, b)

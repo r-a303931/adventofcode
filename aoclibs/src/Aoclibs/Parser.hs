@@ -22,6 +22,11 @@ instance Alternative Parser where
   (Parser p1) <|> (Parser p2) =
     Parser $ \s -> p1 s <|> p2 s
 
+instance Monad Parser where
+  (Parser p1) >>= f = Parser $ \s -> do
+    (v, s') <- p1 s
+    parse (f v) s'
+
 item :: Parser Char
 item = Parser $ \s ->
   case s of

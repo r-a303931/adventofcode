@@ -31,7 +31,7 @@ solve = sum . fmap solveRow
 results1 :: Maybe [TestResult Result]
 results1 = makeTestP fileParser1 solve [ (testData, 157) ]
 
-part1 :: Solution Repr Result
+part1 :: Solution Repr Result Int
 part1 = Solution { filePathP="inputs/day3.txt"
                  , contentParser=fileParser1
                  , solveProblemP=solve
@@ -48,5 +48,5 @@ results2 = makeTestP fileParser2 solve [ (testData, 70) ]
 results :: Maybe [TestResult Result]
 results = (++) <$> results1 <*> results2
 
-part2 :: Solution Repr Result
+part2 :: Solution Repr Result Int
 part2 = part1 { contentParser=fileParser2 }

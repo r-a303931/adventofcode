@@ -28,7 +28,7 @@ solve1 = length . filter (uncurry rangesOverlap)
 results1 :: Maybe [TestResult Result]
 results1 = makeTestP fileParser solve1 [ (testData, 2) ]
 
-part1 :: Solution Repr Result
+part1 :: Solution Repr Result Int
 part1 = Solution { filePathP="inputs/day4.txt"
                  , contentParser=fileParser
                  , solveProblemP=solve1
@@ -43,5 +43,5 @@ solve2 = length . filter (uncurry rangesOverlap)
 results2 :: Maybe [TestResult Result]
 results2 = makeTestP fileParser solve2 [ (testData, 4) ]
 
-part2 :: Solution Repr Result
+part2 :: Solution Repr Result Int
 part2 = part1 { solveProblemP=solve2 }
