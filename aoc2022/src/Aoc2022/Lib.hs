@@ -8,6 +8,7 @@ import qualified Aoc2022.Day3 as D3
 import qualified Aoc2022.Day4 as D4
 import qualified Aoc2022.Day5 as D5
 import qualified Aoc2022.Day6 as D6
+import qualified Aoc2022.Day7 as D7
 
 storeProgram :: Show c => Solution a b c -> Maybe (IO ())
 storeProgram = Just . runProgramP . (\p -> p { filePathP=("aoc2022/" ++ filePathP p) })
@@ -19,4 +20,5 @@ aocYear2022 = makeYear 2022 [ (storeProgram D1.part1, storeProgram D1.part2)
                             , (storeProgram D4.part1, storeProgram D4.part2)
                             , (storeProgram D5.part1, storeProgram D5.part2)
                             , (storeProgram D6.part1, storeProgram D6.part2)
+                            , (storeProgram D7.part1, storeProgram D7.part2)
                             ]

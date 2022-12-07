@@ -31,8 +31,8 @@ data Solution a b c = Solution { filePathP :: String
 runProgramP         :: Show c => Solution a b c -> IO ()
 runProgramP program = interactFile (filePathP program) $ fromJust . (\s -> ((displaySolutionP program) . (solveProblemP program) . fst) <$> (parse (contentParser program) s))
 
-run         :: Show c => Solution a b c -> IO [()]
-run program = sequenceA [runProgramP program, putStrLn ""]
+run         :: Show c => Solution a b c -> IO ()
+run program = const () <$> sequenceA [runProgramP program, putStrLn ""]
 
 interactFile      :: Show a => String -> (String -> a) -> IO ()
 interactFile fp f = (show . f <$> readFile fp) >>= putStr
