@@ -1,4 +1,4 @@
-module Aoclibs.Lib (TestResult, Solution(..), mTrace, makeTestP, run, runProgramP, wordsWhen, modifyArray) where
+module Aoclibs.Lib (TestResult, Solution(..), ShowLines(..), mTrace, makeTestP, run, runProgramP, wordsWhen, modifyArray) where
 
 import Data.Maybe
 import Debug.Trace
@@ -46,3 +46,8 @@ wordsWhen p s =  case dropWhile p s of
 
 modifyArray :: (a -> (a, b)) -> Int -> [a] -> ([a], b)
 modifyArray f ind arr = let (a, b) = f $ arr !! ind in (take ind arr ++ [a] ++ drop (ind + 1) arr, b)
+
+data ShowLines a = ShowLines [a]
+
+instance Show a => Show (ShowLines a) where
+  show (ShowLines a) = unlines . map show $ a
