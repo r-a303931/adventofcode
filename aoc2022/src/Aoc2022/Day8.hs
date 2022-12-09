@@ -1,4 +1,4 @@
-module Aoc2022.Day8 where
+module Aoc2022.Day8 (results1, results2, part1, part2) where
 
 import Control.Applicative
 import Data.Char
