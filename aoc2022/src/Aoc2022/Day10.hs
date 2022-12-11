@@ -1,4 +1,4 @@
-module Day10 (results1, part1, part2) where
+module Aoc2022.Day10 (results1, part1, part2) where
 
 import Control.Applicative
 import Aoclibs.Lib
