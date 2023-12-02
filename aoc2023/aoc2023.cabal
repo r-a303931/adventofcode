@@ -24,6 +24,7 @@ library
   exposed-modules:
       Aoc2023.Lib
       Aoc2023.Day1
+      Aoc2023.Day2
   other-modules:
       Paths_aoc2023
   hs-source-dirs:
