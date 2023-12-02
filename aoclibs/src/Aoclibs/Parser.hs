@@ -1,4 +1,4 @@
-module Aoclibs.Parser (Parser(..), item, charP, stringP, spanP, parseIf, ws, sepBy, intP, tokenP, wordP, charMapP) where
+module Aoclibs.Parser (Parser(..), item, charP, stringP, spanP, parseIf, ws, sepBy, intP, tokenP, wordP, charMapP, linesP) where
 
 import Control.Applicative
 import Data.Char
@@ -56,6 +56,10 @@ ws = spanP isSpace
 
 sepBy             :: Parser a -> Parser b -> Parser [b]
 sepBy sep element = (:) <$> element <*> many (sep *> element)
+
+
+linesP    :: Parser a -> Parser [a]
+linesP el = many (el <* charP '\n')
 
 intP :: Parser Int
 intP = read <$> (some . parseIf) isDigit

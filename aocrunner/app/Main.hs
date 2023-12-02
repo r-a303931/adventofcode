@@ -5,9 +5,10 @@ import qualified Text.Read as T
 
 import qualified Aoclibs.Year as Y
 import Aoc2022.Lib
+import Aoc2023.Lib
 
 years :: [Y.AocYear]
-years = [aocYear2022]
+years = [aocYear2022, aocYear2023]
 
 getYear :: [Y.AocYear] -> IO Y.AocYear
 getYear years' = do

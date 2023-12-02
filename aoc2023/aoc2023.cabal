@@ -1,0 +1,37 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.6.
+--
+-- see: https://github.com/sol/hpack
+
+name:           aoc2023
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/r-a303931/aoc2023#readme>
+homepage:       https://github.com/r-a303931/aoc2023#readme
+bug-reports:    https://github.com/r-a303931/aoc2023/issues
+author:         Andrew Rioux
+maintainer:     rioux.d.andrew@gmail.com
+copyright:      AGPL
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+
+source-repository head
+  type: git
+  location: https://github.com/r-a303931/aoc2023
+
+library
+  exposed-modules:
+      Aoc2023.Lib
+      Aoc2023.Day1
+  other-modules:
+      Paths_aoc2023
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      base >=4.7 && <5
+    , aoclibs
+    , containers
+    , unordered-containers
+  default-language: Haskell2010

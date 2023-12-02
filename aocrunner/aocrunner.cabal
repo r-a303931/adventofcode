@@ -28,6 +28,7 @@ executable aocrunner-exe
   build-depends:
       aoclibs
     , aoc2022
+    , aoc2023
     , base >=4.7 && <5
     , containers
     , time

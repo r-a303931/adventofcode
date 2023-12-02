@@ -1,7 +1,7 @@
 resolver: lts-20.2
 
 packages:
-- aocrunner
-- aoclibs
-- aoc2022
-
+  - aocrunner
+  - aoclibs
+  - aoc2022
+  - aoc2023
